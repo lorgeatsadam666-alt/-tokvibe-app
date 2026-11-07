@@ -1,0 +1,13 @@
+{
+  "name": "TOKVIBE",
+  "description": "Application mobile style TikTok avec flux vidéo immersif, filtres vidéo, authentification Firebase (Google/Apple), favoris, abonnements, monétisation, analyses et IA de recommandation.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone",
+    "geolocation",
+    "notifications"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

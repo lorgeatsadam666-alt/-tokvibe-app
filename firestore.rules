@@ -1,0 +1,144 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // 1. Global Safety Net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // --- Hardened Global Helpers ---
+    function isValidId(id) { return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$'); }
+    function incoming() { return request.resource.data; }
+    function existing() { return resource.data; }
+    function isSignedIn() { return request.auth != null; }
+    function isOwner(userId) { return isSignedIn() && request.auth.uid == userId; }
+    function isAdmin() { return isSignedIn() && exists(/databases/$(database)/documents/admins/$(request.auth.uid)); }
+
+    // --- Entity Validation Blueprints ---
+
+    function isValidUser(data) {
+      return data.uid is string && data.uid.size() <= 128 &&
+             data.displayName is string && data.displayName.size() <= 80 &&
+             data.handle is string && data.handle.size() <= 40 &&
+             (!data.keys().hasAll(['birthDate']) || data.birthDate is string) &&
+             (!data.keys().hasAll(['verificationStatus']) || data.verificationStatus in ['none', 'pending', 'verified', 'rejected']);
+    }
+
+    function isValidVideo(data) {
+      return data.id is string && data.id.size() <= 128 &&
+             data.authorId is string && data.authorId.size() <= 128 &&
+             data.caption is string && data.caption.size() <= 300 &&
+             data.videoUrl is string && data.videoUrl.size() <= 500 &&
+             (!data.keys().hasAll(['authorVerified']) || data.authorVerified is bool);
+    }
+
+    function isValidLike(data) {
+      return data.videoId is string && data.videoId.size() <= 128 &&
+             data.userId is string && data.userId.size() <= 128;
+    }
+
+    function isValidComment(data) {
+      return data.videoId is string && data.videoId.size() <= 128 &&
+             data.userId is string && data.userId.size() <= 128 &&
+             data.text is string && data.text.size() <= 300;
+    }
+
+    function isValidFollow(data) {
+      return data.followerId is string && data.followerId.size() <= 128 &&
+             data.followingId is string && data.followingId.size() <= 128;
+    }
+
+    function isValidNotification(data) {
+      return data.recipientId is string && data.recipientId.size() <= 128 &&
+             data.text is string && data.text.size() <= 240 &&
+             data.type is string && data.type.size() <= 40;
+    }
+
+    function isValidLiveStream(data) {
+      return data.id is string && data.id.size() <= 128 &&
+             data.hostId is string && data.hostId.size() <= 128 &&
+             data.hostName is string && data.hostName.size() <= 80 &&
+             data.hostHandle is string && data.hostHandle.size() <= 40 &&
+             data.title is string && data.title.size() <= 200 &&
+             data.videoUrl is string && data.videoUrl.size() <= 500 &&
+             data.isPublic == true;
+    }
+
+    // --- Collection Rules ---
+
+    // User Profiles
+    match /users/{userId} {
+      allow get: if true;
+      allow list: if true;
+      allow create: if isSignedIn() && isOwner(userId) && isValidUser(incoming()) && 
+                    !incoming().keys().hasAny(['isVerified', 'verificationStatus']);
+      allow update: if isSignedIn() && isOwner(userId) && isValidUser(incoming()) &&
+                    incoming().uid == userId &&
+                    (incoming().diff(existing()).affectedKeys().hasOnly(['displayName', 'handle', 'photoURL', 'bio', 'theme', 'accent', 'language', 'privateAccount', 'allowComments', 'activityStatus', 'aiRecommenderVibe', 'userTags', 'birthDate', 'idCountry', 'idType', 'onboardingCompleted', 'verificationStatus']) || isAdmin()) &&
+                    // Terminal State Locking for Verification: Users can request (pending), but only admin can verify.
+                    (incoming().verificationStatus != 'verified' || existing().verificationStatus == 'verified' || isAdmin()) &&
+                    (incoming().isVerified == existing().isVerified || isAdmin());
+    }
+
+    // Videos
+    match /videos/{videoId} {
+      allow read: if true;
+      allow create: if isSignedIn() && isOwner(incoming().authorId) && isValidVideo(incoming());
+      allow update: if isSignedIn() && isOwner(existing().authorId) && isValidVideo(incoming()) &&
+                    incoming().authorId == existing().authorId;
+      allow delete: if isSignedIn() && isOwner(existing().authorId);
+
+      // Video Likes (Sub-collection)
+      match /likes/{likeId} {
+        allow read: if true;
+        allow create: if isSignedIn() && isOwner(incoming().userId) && isValidLike(incoming());
+        allow delete: if isSignedIn() && isOwner(existing().userId);
+      }
+
+      // Video Comments (Sub-collection)
+      match /comments/{commentId} {
+        allow read: if true;
+        allow create: if isSignedIn() && isOwner(incoming().userId) && isValidComment(incoming());
+        allow update: if isSignedIn() && isOwner(existing().userId) && isValidComment(incoming());
+        allow delete: if isSignedIn() && (isOwner(existing().userId) || isOwner(get(/databases/$(database)/documents/videos/$(videoId)).data.authorId));
+      }
+    }
+
+    // Public Live Streams (All live streams are public and listed for everyone)
+    match /lives/{liveId} {
+      allow get: if resource == null || existing().isPublic == true;
+      allow list: if existing().isPublic == true;
+      allow create: if isValidId(liveId) && isValidLiveStream(incoming());
+      allow update: if isValidId(liveId) && isValidLiveStream(incoming()) &&
+                    incoming().hostId == existing().hostId;
+      allow delete: if isValidId(liveId) && ((isSignedIn() && isOwner(existing().hostId)) || existing().hostId == 'creator-me' || isAdmin());
+    }
+
+    // User Bookmarks (Private to user)
+    match /users/{userId}/bookmarks/{bookmarkId} {
+      allow read: if isOwner(userId);
+      allow create: if isOwner(userId) && incoming().userId == userId;
+      allow delete: if isOwner(userId);
+    }
+
+    // User Follows
+    match /users/{userId}/follows/{targetUserId} {
+      allow read: if true;
+      allow create: if isOwner(userId) && incoming().followerId == userId;
+      allow delete: if isOwner(userId);
+    }
+
+    // User Notifications (Private to recipient)
+    match /users/{userId}/notifications/{notifId} {
+      allow read: if isOwner(userId);
+      allow update: if isOwner(userId) && incoming().diff(existing()).affectedKeys().hasOnly(['read']);
+      allow create: if isSignedIn(); 
+    }
+
+    // Admin Access
+    match /admins/{adminId} {
+      allow read: if isSignedIn();
+      allow write: if false; 
+    }
+  }
+}

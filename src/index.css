@@ -1,0 +1,222 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   TOKVIBE LIGHT THEME (Mode Clair & Système Clair) — Haute Lisibilité (AAA)
+   S'applique automatiquement lorsque html possède la classe 'light' ou 'light-theme'
+   Exclut le lecteur vidéo immersif ([data-feed-overlay="true"]) et les miniatures (.aspect-\[9\/16\])
+   ========================================================================== */
+
+html.light body,
+html.light-theme body {
+  background-color: #ffffff !important;
+  color: #09090b !important;
+}
+
+/* 1. Fonds principaux (Noir -> Blanc pur) */
+html.light .bg-black:not([data-feed-overlay="true"] *):not(.aspect-\[9\/16\] *),
+html.light .bg-zinc-950:not([data-feed-overlay="true"] *):not(.aspect-\[9\/16\] *),
+html.light .bg-\[\#0d1114\]:not([data-feed-overlay="true"] *) {
+  background-color: #ffffff !important;
+  color: #09090b !important;
+}
+
+html.light .bg-black\/95:not([data-feed-overlay="true"] *):not(.aspect-\[9\/16\] *),
+html.light .bg-black\/90:not([data-feed-overlay="true"] *):not(.aspect-\[9\/16\] *),
+html.light .bg-black\/85:not([data-feed-overlay="true"] *):not(.aspect-\[9\/16\] *),
+html.light .bg-black\/80:not([data-feed-overlay="true"] *):not(.aspect-\[9\/16\] *),
+html.light .bg-black\/75:not([data-feed-overlay="true"] *):not(.aspect-\[9\/16\] *),
+html.light .bg-black\/70:not([data-feed-overlay="true"] *):not(.aspect-\[9\/16\] *),
+html.light .bg-black\/60:not([data-feed-overlay="true"] *):not(.aspect-\[9\/16\] *),
+html.light .bg-black\/50:not([data-feed-overlay="true"] *):not(.aspect-\[9\/16\] *),
+html.light .bg-black\/40:not([data-feed-overlay="true"] *):not(.aspect-\[9\/16\] *),
+html.light .bg-zinc-950\/95:not([data-feed-overlay="true"] *):not(.aspect-\[9\/16\] *),
+html.light .bg-zinc-950\/90:not([data-feed-overlay="true"] *):not(.aspect-\[9\/16\] *) {
+  background-color: #f8fafc !important;
+  color: #09090b !important;
+}
+
+/* 2. Suppression des dégradés sombres (qui rendaient le texte noir illisible) */
+html.light .from-zinc-900:not([data-feed-overlay="true"] *):not(.aspect-\[9\/16\] *),
+html.light .from-zinc-950:not([data-feed-overlay="true"] *):not(.aspect-\[9\/16\] *),
+html.light .from-black:not([data-feed-overlay="true"] *):not(.aspect-\[9\/16\] *),
+html.light .to-black:not([data-feed-overlay="true"] *):not(.aspect-\[9\/16\] *),
+html.light .to-zinc-900:not([data-feed-overlay="true"] *):not(.aspect-\[9\/16\] *),
+html.light .to-zinc-950:not([data-feed-overlay="true"] *):not(.aspect-\[9\/16\] *),
+html.light .to-zinc-850:not([data-feed-overlay="true"] *):not(.aspect-\[9\/16\] *),
+html.light .from-purple-950:not([data-feed-overlay="true"] *),
+html.light .from-blue-950:not([data-feed-overlay="true"] *),
+html.light .from-amber-950:not([data-feed-overlay="true"] *),
+html.light .from-emerald-950\/70:not([data-feed-overlay="true"] *),
+html.light .from-emerald-950\/80:not([data-feed-overlay="true"] *) {
+  background-image: none !important;
+  background-color: #f1f5f9 !important;
+  color: #09090b !important;
+}
+
+/* 3. Cartes et surfaces secondaires (Gris très clair contrasté) */
+html.light .bg-zinc-900:not([data-feed-overlay="true"] *):not(.aspect-\[9\/16\] *):not([data-keep-dark="true"]),
+html.light .bg-zinc-900\/95:not([data-feed-overlay="true"] *):not(.aspect-\[9\/16\] *):not([data-keep-dark="true"]),
+html.light .bg-zinc-900\/90:not([data-feed-overlay="true"] *):not(.aspect-\[9\/16\] *),
+html.light .bg-zinc-900\/85:not([data-feed-overlay="true"] *):not(.aspect-\[9\/16\] *),
+html.light .bg-zinc-900\/80:not([data-feed-overlay="true"] *):not(.aspect-\[9\/16\] *),
+html.light .bg-zinc-900\/70:not([data-feed-overlay="true"] *):not(.aspect-\[9\/16\] *),
+html.light .bg-zinc-900\/60:not([data-feed-overlay="true"] *):not(.aspect-\[9\/16\] *),
+html.light .bg-zinc-900\/50:not([data-feed-overlay="true"] *):not(.aspect-\[9\/16\] *),
+html.light .bg-zinc-900\/40:not([data-feed-overlay="true"] *):not(.aspect-\[9\/16\] *),
+html.light .bg-\[\#121212\]:not([data-feed-overlay="true"] *),
+html.light .bg-\[\#0d0d0d\]:not([data-feed-overlay="true"] *),
+html.light .bg-\[\#18181B\]:not([data-feed-overlay="true"] *) {
+  background-color: #f1f5f9 !important;
+  color: #09090b !important;
+}
+
+html.light .bg-zinc-800:not([data-feed-overlay="true"] *):not(.aspect-\[9\/16\] *),
+html.light .bg-zinc-800\/80:not([data-feed-overlay="true"] *):not(.aspect-\[9\/16\] *),
+html.light .bg-zinc-800\/60:not([data-feed-overlay="true"] *):not(.aspect-\[9\/16\] *),
+html.light .bg-white\/5:not([data-feed-overlay="true"] *):not(.aspect-\[9\/16\] *),
+html.light .bg-white\/10:not([data-feed-overlay="true"] *):not(.aspect-\[9\/16\] *),
+html.light .bg-white\/15:not([data-feed-overlay="true"] *):not(.aspect-\[9\/16\] *) {
+  background-color: #e2e8f0 !important;
+  color: #09090b !important;
+}
+
+/* Fonds colorés sombres -> Fonds pastels clairs très lisibles */
+html.light .bg-blue-950\/30:not([data-feed-overlay="true"] *),
+html.light .bg-blue-950\/40:not([data-feed-overlay="true"] *),
+html.light .bg-blue-950\/50:not([data-feed-overlay="true"] *),
+html.light .bg-blue-950\/90:not([data-feed-overlay="true"] *) {
+  background-color: #dbeafe !important;
+  color: #1e3a8a !important;
+}
+
+html.light .bg-emerald-950\/40:not([data-feed-overlay="true"] *),
+html.light .bg-emerald-950\/60:not([data-feed-overlay="true"] *) {
+  background-color: #d1fae5 !important;
+  color: #064e3b !important;
+}
+
+html.light .bg-amber-950\/40:not([data-feed-overlay="true"] *),
+html.light .bg-amber-950\/60:not([data-feed-overlay="true"] *) {
+  background-color: #fef3c7 !important;
+  color: #78350f !important;
+}
+
+html.light .bg-purple-950\/40:not([data-feed-overlay="true"] *),
+html.light .bg-purple-950\/90:not([data-feed-overlay="true"] *) {
+  background-color: #ede9fe !important;
+  color: #4c1d95 !important;
+}
+
+/* 4. Textes principaux et secondaires — Contraste Maximal à l'œil nu */
+html.light .text-white:not([data-feed-overlay="true"] *):not(.aspect-\[9\/16\] *):not([data-keep-white="true"]),
+html.light .text-white\/95:not([data-feed-overlay="true"] *):not(.aspect-\[9\/16\] *),
+html.light .text-white\/90:not([data-feed-overlay="true"] *):not(.aspect-\[9\/16\] *),
+html.light .text-white\/85:not([data-feed-overlay="true"] *):not(.aspect-\[9\/16\] *),
+html.light .text-white\/80:not([data-feed-overlay="true"] *):not(.aspect-\[9\/16\] *) {
+  color: #09090b !important;
+}
+
+html.light .text-white\/75:not([data-feed-overlay="true"] *):not(.aspect-\[9\/16\] *),
+html.light .text-white\/70:not([data-feed-overlay="true"] *):not(.aspect-\[9\/16\] *),
+html.light .text-white\/65:not([data-feed-overlay="true"] *):not(.aspect-\[9\/16\] *),
+html.light .text-white\/60:not([data-feed-overlay="true"] *):not(.aspect-\[9\/16\] *),
+html.light .text-white\/55:not([data-feed-overlay="true"] *):not(.aspect-\[9\/16\] *),
+html.light .text-white\/50:not([data-feed-overlay="true"] *):not(.aspect-\[9\/16\] *),
+html.light .text-white\/45:not([data-feed-overlay="true"] *):not(.aspect-\[9\/16\] *),
+html.light .text-white\/40:not([data-feed-overlay="true"] *):not(.aspect-\[9\/16\] *),
+html.light .text-white\/35:not([data-feed-overlay="true"] *):not(.aspect-\[9\/16\] *),
+html.light .text-white\/30:not([data-feed-overlay="true"] *):not(.aspect-\[9\/16\] *),
+html.light .text-white\/20:not([data-feed-overlay="true"] *):not(.aspect-\[9\/16\] *) {
+  color: #334155 !important;
+}
+
+/* Placeholders des champs de saisie en Mode Clair */
+html.light input::placeholder,
+html.light textarea::placeholder {
+  color: #64748b !important;
+}
+
+/* 5. Couleurs d'accentuation — Assombries en Mode Clair pour une lisibilité parfaite sur fond blanc */
+html.light .text-\[\#25F4EE\]:not([data-feed-overlay="true"] *):not(.aspect-\[9\/16\] *) {
+  color: #0284c7 !important;
+}
+
+html.light .text-emerald-300:not([data-feed-overlay="true"] *),
+html.light .text-emerald-400:not([data-feed-overlay="true"] *),
+html.light .text-emerald-400\/80:not([data-feed-overlay="true"] *),
+html.light .text-\[\#22c55e\]:not([data-feed-overlay="true"] *) {
+  color: #047857 !important;
+}
+
+html.light .text-blue-200:not([data-feed-overlay="true"] *),
+html.light .text-blue-200\/80:not([data-feed-overlay="true"] *),
+html.light .text-blue-300:not([data-feed-overlay="true"] *),
+html.light .text-blue-300\/70:not([data-feed-overlay="true"] *),
+html.light .text-blue-400:not([data-feed-overlay="true"] *) {
+  color: #1d4ed8 !important;
+}
+
+html.light .text-purple-200:not([data-feed-overlay="true"] *),
+html.light .text-purple-300:not([data-feed-overlay="true"] *),
+html.light .text-purple-300\/70:not([data-feed-overlay="true"] *),
+html.light .text-purple-400:not([data-feed-overlay="true"] *) {
+  color: #6d28d9 !important;
+}
+
+html.light .text-amber-200:not([data-feed-overlay="true"] *),
+html.light .text-amber-200\/90:not([data-feed-overlay="true"] *),
+html.light .text-amber-300:not([data-feed-overlay="true"] *),
+html.light .text-amber-400:not([data-feed-overlay="true"] *) {
+  color: #b45309 !important;
+}
+
+html.light .text-rose-300:not([data-feed-overlay="true"] *),
+html.light .text-rose-400:not([data-feed-overlay="true"] *),
+html.light .text-\[\#FE2C55\]:not([data-feed-overlay="true"] *) {
+  color: #be123c !important;
+}
+
+/* 6. Bordures nettes et visibles en Mode Clair */
+html.light .border-white\/5:not([data-feed-overlay="true"] *),
+html.light .border-white\/10:not([data-feed-overlay="true"] *),
+html.light .border-white\/15:not([data-feed-overlay="true"] *),
+html.light .border-white\/20:not([data-feed-overlay="true"] *),
+html.light .border-white\/25:not([data-feed-overlay="true"] *),
+html.light .border-zinc-800:not([data-feed-overlay="true"] *),
+html.light .border-zinc-900:not([data-feed-overlay="true"] *) {
+  border-color: #cbd5e1 !important;
+}
+
+html.light .divide-white\/5 > :not([hidden]) ~ :not([hidden]),
+html.light .divide-white\/10 > :not([hidden]) ~ :not([hidden]) {
+  border-color: #e2e8f0 !important;
+}
+
+/* ==========================================================================
+   TOKVIBE POWER SAVING MODE (Mode Économie d'Énergie — 30 Hz & Basse Conso GPU)
+   Réduit la fréquence de rafraîchissement des animations et désactive les flous GPU
+   ========================================================================== */
+
+html.power-saving *,
+html.power-saving *::before,
+html.power-saving *::after {
+  animation-timing-function: steps(12, end) !important;
+  transition-duration: 80ms !important;
+}
+
+html.power-saving .animate-spin,
+html.power-saving .animate-pulse,
+html.power-saving .animate-bounce,
+html.power-saving .animate-ping {
+  animation-play-state: paused !important;
+  animation: none !important;
+}
+
+html.power-saving .backdrop-blur-sm,
+html.power-saving .backdrop-blur-md,
+html.power-saving .backdrop-blur-lg,
+html.power-saving .backdrop-blur-xl {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+

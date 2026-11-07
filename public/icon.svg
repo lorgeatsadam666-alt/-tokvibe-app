@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#050505" />
+      <stop offset="50%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#000000" />
+    </linearGradient>
+    <linearGradient id="neon" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#25F4EE" />
+      <stop offset="50%" stop-color="#22c55e" />
+      <stop offset="100%" stop-color="#FE2C55" />
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="115" fill="url(#bg)" />
+  <rect x="24" y="24" width="464" height="464" rx="96" fill="none" stroke="url(#neon)" stroke-width="10" opacity="0.85" />
+  <path d="M296 128v172c0 48.6-39.4 88-88 88s-88-39.4-88-88 39.4-88 88-88c14.2 0 27.6 3.4 39.5 9.4v52.3c-11.1-7.8-24.7-12.4-39.5-12.4-21.4 0-38.7 17.3-38.7 38.7s17.3 38.7 38.7 38.7 38.7-17.3 38.7-38.7V128h49.3z" fill="#25F4EE" transform="translate(-8, -6)" opacity="0.85"/>
+  <path d="M312 128c4.5 38.2 31.4 69.8 68.8 78.2v49.5c-26.2-2.6-50.2-13.6-68.8-30.2v82.5c0 48.6-39.4 88-88 88s-88-39.4-88-88 39.4-88 88-88c14.2 0 27.6 3.4 39.5 9.4v52.3c-11.1-7.8-24.7-12.4-39.5-12.4-21.4 0-38.7 17.3-38.7 38.7s17.3 38.7 38.7 38.7 38.7-17.3 38.7-38.7V128H312z" fill="#FE2C55" transform="translate(8, 6)" opacity="0.85"/>
+  <path d="M304 128c4.5 38.2 31.4 69.8 68.8 78.2v49.5c-26.2-2.6-50.2-13.6-68.8-30.2v82.5c0 48.6-39.4 88-88 88s-88-39.4-88-88 39.4-88 88-88c14.2 0 27.6 3.4 39.5 9.4v52.3c-11.1-7.8-24.7-12.4-39.5-12.4-21.4 0-38.7 17.3-38.7 38.7s17.3 38.7 38.7 38.7 38.7-17.3 38.7-38.7V128H304z" fill="#ffffff"/>
+</svg>

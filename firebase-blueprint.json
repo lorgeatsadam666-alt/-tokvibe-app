@@ -1,0 +1,193 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile with personal settings and creator statistics",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "maxLength": 128 },
+        "email": { "type": "string", "maxLength": 128 },
+        "displayName": { "type": "string", "maxLength": 80 },
+        "handle": { "type": "string", "maxLength": 40 },
+        "photoURL": { "type": "string", "maxLength": 500 },
+        "bio": { "type": "string", "maxLength": 280 },
+        "followersCount": { "type": "number" },
+        "followingCount": { "type": "number" },
+        "likesReceived": { "type": "number" },
+        "isCreator": { "type": "boolean" },
+        "monetizationEnabled": { "type": "boolean" },
+        "walletBalance": { "type": "number" },
+        "theme": { "type": "string", "maxLength": 30 },
+        "language": { "type": "string", "maxLength": 10 },
+        "privateAccount": { "type": "boolean" },
+        "allowComments": { "type": "boolean" },
+        "aiRecommenderVibe": { "type": "string", "maxLength": 40 },
+        "birthDate": { "type": "string", "maxLength": 20 },
+        "idCountry": { "type": "string", "maxLength": 60 },
+        "idType": { "type": "string", "enum": ["passport", "id_card", "driver_license"] },
+        "verificationStatus": { "type": "string", "enum": ["none", "pending", "verified", "rejected"] },
+        "onboardingCompleted": { "type": "boolean" },
+        "isVerified": { "type": "boolean" },
+        "createdAt": { "type": "string", "maxLength": 60 },
+        "updatedAt": { "type": "string", "maxLength": 60 }
+      },
+      "required": ["uid", "displayName", "handle"]
+    },
+    "Video": {
+      "title": "Video",
+      "description": "Short-form video post in feed",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "authorId": { "type": "string", "maxLength": 128 },
+        "authorName": { "type": "string", "maxLength": 80 },
+        "authorHandle": { "type": "string", "maxLength": 40 },
+        "authorAvatar": { "type": "string", "maxLength": 500 },
+        "authorVerified": { "type": "boolean" },
+        "caption": { "type": "string", "maxLength": 300 },
+        "videoUrl": { "type": "string", "maxLength": 500 },
+        "thumbnailUrl": { "type": "string", "maxLength": 500 },
+        "musicTitle": { "type": "string", "maxLength": 100 },
+        "musicAuthor": { "type": "string", "maxLength": 100 },
+        "filter": { "type": "string", "maxLength": 40 },
+        "tags": { "type": "string", "maxLength": 200 },
+        "likesCount": { "type": "number" },
+        "commentsCount": { "type": "number" },
+        "bookmarksCount": { "type": "number" },
+        "sharesCount": { "type": "number" },
+        "viewsCount": { "type": "number" },
+        "earnings": { "type": "number" },
+        "createdAt": { "type": "string", "maxLength": 60 }
+      },
+      "required": ["id", "authorId", "caption", "videoUrl"]
+    },
+    "Like": {
+      "title": "Like",
+      "description": "Video like interaction",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "videoId": { "type": "string", "maxLength": 128 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "createdAt": { "type": "string", "maxLength": 60 }
+      },
+      "required": ["videoId", "userId"]
+    },
+    "Bookmark": {
+      "title": "Bookmark",
+      "description": "Saved favorite video by user",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "videoId": { "type": "string", "maxLength": 128 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "createdAt": { "type": "string", "maxLength": 60 }
+      },
+      "required": ["videoId", "userId"]
+    },
+    "Comment": {
+      "title": "Comment",
+      "description": "Video commentary",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "videoId": { "type": "string", "maxLength": 128 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "userName": { "type": "string", "maxLength": 80 },
+        "userAvatar": { "type": "string", "maxLength": 500 },
+        "text": { "type": "string", "maxLength": 300 },
+        "likesCount": { "type": "number" },
+        "createdAt": { "type": "string", "maxLength": 60 }
+      },
+      "required": ["videoId", "userId", "text"]
+    },
+    "Follow": {
+      "title": "Follow",
+      "description": "Creator following relationship",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "followerId": { "type": "string", "maxLength": 128 },
+        "followingId": { "type": "string", "maxLength": 128 },
+        "createdAt": { "type": "string", "maxLength": 60 }
+      },
+      "required": ["followerId", "followingId"]
+    },
+    "Notification": {
+      "title": "Notification",
+      "description": "Real-time push and in-app community notification",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "recipientId": { "type": "string", "maxLength": 128 },
+        "senderId": { "type": "string", "maxLength": 128 },
+        "senderName": { "type": "string", "maxLength": 80 },
+        "senderAvatar": { "type": "string", "maxLength": 500 },
+        "type": { "type": "string", "maxLength": 40 },
+        "text": { "type": "string", "maxLength": 240 },
+        "videoId": { "type": "string", "maxLength": 128 },
+        "read": { "type": "boolean" },
+        "createdAt": { "type": "string", "maxLength": 60 }
+      },
+      "required": ["recipientId", "text", "type"]
+    },
+    "LiveStream": {
+      "title": "LiveStream",
+      "description": "Public live broadcast stream in the TokVibe live feed",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "hostId": { "type": "string", "maxLength": 128 },
+        "hostName": { "type": "string", "maxLength": 80 },
+        "hostHandle": { "type": "string", "maxLength": 40 },
+        "hostAvatar": { "type": "string", "maxLength": 500 },
+        "hostVerified": { "type": "boolean" },
+        "title": { "type": "string", "maxLength": 200 },
+        "category": { "type": "string", "maxLength": 60 },
+        "viewersCount": { "type": "number" },
+        "likesCount": { "type": "number" },
+        "videoUrl": { "type": "string", "maxLength": 500 },
+        "goalLabel": { "type": "string", "maxLength": 80 },
+        "goalCurrent": { "type": "number" },
+        "goalTarget": { "type": "number" },
+        "isPublic": { "type": "boolean" },
+        "startedAt": { "type": "number" }
+      },
+      "required": ["id", "hostId", "hostName", "hostHandle", "title", "videoUrl", "isPublic"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profiles and account settings"
+    },
+    "/videos/{videoId}": {
+      "schema": "Video",
+      "description": "Published feed videos"
+    },
+    "/videos/{videoId}/likes/{likeId}": {
+      "schema": "Like",
+      "description": "Video like entries"
+    },
+    "/videos/{videoId}/comments/{commentId}": {
+      "schema": "Comment",
+      "description": "Comments attached to video"
+    },
+    "/users/{userId}/bookmarks/{bookmarkId}": {
+      "schema": "Bookmark",
+      "description": "Saved favorite videos by user"
+    },
+    "/users/{userId}/follows/{targetUserId}": {
+      "schema": "Follow",
+      "description": "Creators followed by user"
+    },
+    "/users/{userId}/notifications/{notifId}": {
+      "schema": "Notification",
+      "description": "Real-time push alerts and community interactions for user"
+    },
+    "/lives/{liveId}": {
+      "schema": "LiveStream",
+      "description": "Public live streams visible to all users in the scrollable live list"
+    }
+  }
+}
